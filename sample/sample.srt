@@ -1,0 +1,1628 @@
+1
+00:00:00,000 --> 00:00:03,300
+Hey everyone, welcome back, welcome to another exciting video
+
+2
+00:00:03,300 --> 00:00:09,300
+and in this video, we are going to make our own video subtitle generator app using AI
+
+3
+00:00:09,300 --> 00:00:12,300
+so basically what we are going to achieve in this video is
+
+4
+00:00:12,300 --> 00:00:18,300
+if we have a video, let's say like you watch my videos and those videos are in Hindi language
+
+5
+00:00:18,300 --> 00:00:22,700
+so what I want is that I have an AI tool to process my videos
+
+6
+00:00:22,700 --> 00:00:27,900
+and generate subtitles in English language
+
+7
+00:00:27,900 --> 00:00:33,400
+so that non-Hindi speakers can also watch my videos by reading subtitles
+
+8
+00:00:33,400 --> 00:00:37,400
+so just to set the context first, if you have watched my live stream video yesterday
+
+9
+00:00:37,400 --> 00:00:41,900
+then I have given you this challenge that if you can make this, it will be really cool
+
+10
+00:00:41,900 --> 00:00:46,900
+so like this is a real problem that all the content creators face and I personally face
+
+11
+00:00:46,900 --> 00:00:52,400
+and all the online tools like capwing, wheat are very expensive
+
+12
+00:00:52,400 --> 00:00:58,400
+so I thought let's make our own and make a video or a tutorial that how I made this
+
+13
+00:00:58,400 --> 00:00:59,900
+so let's start with the video
+
+14
+00:00:59,900 --> 00:01:03,900
+before starting the video, let's take an overview of what we are going to do
+
+15
+00:01:03,900 --> 00:01:06,400
+how we are going to approach this
+
+16
+00:01:06,400 --> 00:01:09,400
+so basically what we are going to do is we are going to use docker
+
+17
+00:01:09,400 --> 00:01:11,400
+so we have a docker container
+
+18
+00:01:11,400 --> 00:01:18,400
+what we are going to do is we are going to use Ubuntu image in this
+
+19
+00:01:18,400 --> 00:01:20,900
+we are going to install some tools in this
+
+20
+00:01:20,900 --> 00:01:26,900
+so what we are going to do is we are going to install some video file in docker container
+
+21
+00:01:26,900 --> 00:01:29,900
+and in return what we are going to do is we are going to make a text file
+
+22
+00:01:29,900 --> 00:01:32,900
+a text file and an SRT file
+
+23
+00:01:32,900 --> 00:01:36,900
+in which our transcriptions and I can say our subtitles will be there
+
+24
+00:01:36,900 --> 00:01:40,900
+and it can be that whatever we are going to do in the video is in any language
+
+25
+00:01:40,900 --> 00:01:42,900
+like Hindi, Punjabi or any language
+
+26
+00:01:42,900 --> 00:01:48,900
+and in return what we are going to do is we are going to generate subtitles in English language
+
+27
+00:01:48,900 --> 00:01:50,900
+so this is our approach
+
+28
+00:01:50,900 --> 00:01:54,900
+and for this what we are going to do is we are going to use whisper AI
+
+29
+00:01:54,900 --> 00:01:57,900
+so if you don't know what is whisper AI
+
+30
+00:01:57,900 --> 00:02:00,900
+whisper AI is basically a large language model
+
+31
+00:02:00,900 --> 00:02:03,900
+that works on videos or on audios
+
+32
+00:02:03,900 --> 00:02:05,900
+and this is completely open source
+
+33
+00:02:05,900 --> 00:02:07,900
+and free of cost
+
+34
+00:02:07,900 --> 00:02:10,900
+so if you want to read its architecture
+
+35
+00:02:10,900 --> 00:02:11,900
+then you can read it here
+
+36
+00:02:11,900 --> 00:02:13,900
+so in this you can see that if the user says this
+
+37
+00:02:13,900 --> 00:02:15,900
+then you can generate English transcriptions
+
+38
+00:02:15,900 --> 00:02:18,900
+you can generate any to English transcriptions
+
+39
+00:02:18,900 --> 00:02:21,900
+for example the user is talking in any language
+
+40
+00:02:21,900 --> 00:02:24,900
+and the transcriptions that are being made are in English language
+
+41
+00:02:24,900 --> 00:02:26,900
+and this is exactly what we want
+
+42
+00:02:26,900 --> 00:02:29,900
+so let's start from the coding part
+
+43
+00:02:29,900 --> 00:02:31,900
+I didn't want to waste much time here
+
+44
+00:02:31,900 --> 00:02:34,900
+so we are going to use this and this is free of cost
+
+45
+00:02:34,900 --> 00:02:36,900
+so for this video tutorial
+
+46
+00:02:36,900 --> 00:02:38,900
+I have recorded a sample video here
+
+47
+00:02:38,900 --> 00:02:40,900
+this is in Hindi language
+
+48
+00:02:40,900 --> 00:02:42,900
+so let me show you the video
+
+49
+00:02:42,900 --> 00:02:44,900
+so let me play it
+
+50
+00:02:46,900 --> 00:02:48,900
+welcome
+
+51
+00:02:48,900 --> 00:02:50,900
+so this is a sample video
+
+52
+00:02:50,900 --> 00:02:52,900
+which is going to be in Hindi
+
+53
+00:02:52,900 --> 00:02:54,900
+and we will try to generate subtitles
+
+54
+00:02:54,900 --> 00:02:56,900
+of this Hindi video
+
+55
+00:02:56,900 --> 00:02:58,900
+in English language
+
+56
+00:02:58,900 --> 00:03:00,900
+so that our non-Hindi speaking audience
+
+57
+00:03:00,900 --> 00:03:02,900
+can enjoy this video
+
+58
+00:03:02,900 --> 00:03:04,900
+so let's see
+
+59
+00:03:04,900 --> 00:03:06,900
+how our English subtitles
+
+60
+00:03:06,900 --> 00:03:08,900
+come out
+
+61
+00:03:09,900 --> 00:03:11,900
+so this is our video
+
+62
+00:03:11,900 --> 00:03:13,900
+which we are going to translate
+
+63
+00:03:13,900 --> 00:03:15,900
+so let's do one thing
+
+64
+00:03:15,900 --> 00:03:17,900
+let's open our terminal
+
+65
+00:03:17,900 --> 00:03:19,900
+this is our terminal
+
+66
+00:03:19,900 --> 00:03:21,900
+and we will make a new project
+
+67
+00:03:21,900 --> 00:03:23,900
+in the coding folder
+
+68
+00:03:23,900 --> 00:03:25,900
+so we will call it video translator
+
+69
+00:03:25,900 --> 00:03:27,900
+so this is our server video translator
+
+70
+00:03:27,900 --> 00:03:29,900
+and in this I will do cd
+
+71
+00:03:29,900 --> 00:03:31,900
+video translator
+
+72
+00:03:31,900 --> 00:03:33,900
+and code dot
+
+73
+00:03:33,900 --> 00:03:35,900
+which will open my vscode
+
+74
+00:03:35,900 --> 00:03:37,900
+so as per our architecture
+
+75
+00:03:37,900 --> 00:03:39,900
+we need to make a docker container
+
+76
+00:03:39,900 --> 00:03:41,900
+so let's do one thing
+
+77
+00:03:41,900 --> 00:03:43,900
+let's make a docker file
+
+78
+00:03:43,900 --> 00:03:45,900
+and just in case you don't know docker
+
+79
+00:03:45,900 --> 00:03:47,900
+you never worked with docker
+
+80
+00:03:47,900 --> 00:03:49,900
+so what you can do is you can just head over
+
+81
+00:03:49,900 --> 00:03:51,900
+to learn.pushkar.dev
+
+82
+00:03:51,900 --> 00:03:53,900
+and you can just get at my course of docker
+
+83
+00:03:53,900 --> 00:03:55,900
+I will put the link in the description
+
+84
+00:03:55,900 --> 00:03:57,900
+so here is the course
+
+85
+00:03:57,900 --> 00:03:59,900
+so in this we have covered
+
+86
+00:03:59,900 --> 00:04:01,900
+the docker from absolute beginner
+
+87
+00:04:01,900 --> 00:04:03,900
+to advanced level
+
+88
+00:04:03,900 --> 00:04:05,900
+but please consider this course
+
+89
+00:04:05,900 --> 00:04:07,900
+so you can see this course
+
+90
+00:04:07,900 --> 00:04:09,900
+back to the topic
+
+91
+00:04:09,900 --> 00:04:11,900
+so what we are going to do
+
+92
+00:04:11,900 --> 00:04:13,900
+I will assume that you already know docker
+
+93
+00:04:13,900 --> 00:04:15,900
+so what we are going to do is
+
+94
+00:04:15,900 --> 00:04:17,900
+we will take a base image here first
+
+95
+00:04:17,900 --> 00:04:19,900
+as I told you
+
+96
+00:04:19,900 --> 00:04:21,900
+we will take a base image here
+
+97
+00:04:21,900 --> 00:04:23,900
+what it means is that we will do it inside
+
+98
+00:04:23,900 --> 00:04:25,900
+now we have to use this whisper ai
+
+99
+00:04:25,900 --> 00:04:27,900
+it is very simple
+
+100
+00:04:27,900 --> 00:04:29,900
+what we have to do is
+
+101
+00:04:29,900 --> 00:04:31,900
+first we have to install the whisper ai
+
+102
+00:04:31,900 --> 00:04:33,900
+so that is we have to install pip
+
+103
+00:04:33,900 --> 00:04:35,900
+which is ok
+
+104
+00:04:35,900 --> 00:04:37,900
+after that what we have to do is
+
+105
+00:04:37,900 --> 00:04:39,900
+we have to install some tools here
+
+106
+00:04:39,900 --> 00:04:41,900
+just like ffmpeg
+
+107
+00:04:41,900 --> 00:04:43,900
+so internally we have to use ffmpeg
+
+108
+00:04:43,900 --> 00:04:45,900
+and we have to install ffmpeg
+
+109
+00:04:45,900 --> 00:04:47,900
+inside our docker container
+
+110
+00:04:47,900 --> 00:04:49,900
+and we have to install this too
+
+111
+00:04:49,900 --> 00:04:51,900
+after that that's it
+
+112
+00:04:51,900 --> 00:04:53,900
+we are ready to go
+
+113
+00:04:53,900 --> 00:04:55,900
+after that you can see what we have to do
+
+114
+00:04:55,900 --> 00:04:57,900
+we have to say whisper
+
+115
+00:04:57,900 --> 00:04:59,900
+whatever audio video file we have to give
+
+116
+00:04:59,900 --> 00:05:01,900
+it will be in hindi language
+
+117
+00:05:01,900 --> 00:05:03,900
+and we will say
+
+118
+00:05:03,900 --> 00:05:05,900
+task translate
+
+119
+00:05:05,900 --> 00:05:07,900
+so what it will do is translate it in english
+
+120
+00:05:07,900 --> 00:05:09,900
+if we don't give this task
+
+121
+00:05:09,900 --> 00:05:11,900
+then what it will do is
+
+122
+00:05:11,900 --> 00:05:13,900
+the language in which we have this video
+
+123
+00:05:13,900 --> 00:05:15,900
+will generate the same subtitles
+
+124
+00:05:15,900 --> 00:05:17,900
+what we can do is we can make two translations
+
+125
+00:05:17,900 --> 00:05:19,900
+we can make hindi subtitles
+
+126
+00:05:19,900 --> 00:05:21,900
+and we can make english subtitles
+
+127
+00:05:21,900 --> 00:05:23,900
+so this is going to be really cool
+
+128
+00:05:23,900 --> 00:05:25,900
+so let's start it quickly
+
+129
+00:05:25,900 --> 00:05:27,900
+so what we have to do is
+
+130
+00:05:27,900 --> 00:05:29,900
+finally we want to do a command run
+
+131
+00:05:29,900 --> 00:05:31,900
+that is apt update
+
+132
+00:05:31,900 --> 00:05:33,900
+so our packages will be updated
+
+133
+00:05:33,900 --> 00:05:35,900
+and after that what we are going to do is
+
+134
+00:05:35,900 --> 00:05:37,900
+we are going to do apt install ffmpeg
+
+135
+00:05:37,900 --> 00:05:39,900
+so what we have to do inside this docker container
+
+136
+00:05:39,900 --> 00:05:41,900
+we have to install ffmpeg
+
+137
+00:05:41,900 --> 00:05:43,900
+plus we have to install python
+
+138
+00:05:43,900 --> 00:05:45,900
+so here you can quickly search
+
+139
+00:05:45,900 --> 00:05:47,900
+like python install
+
+140
+00:05:47,900 --> 00:05:49,900
+in ubuntu
+
+141
+00:05:49,900 --> 00:05:51,900
+so how we can install python
+
+142
+00:05:51,900 --> 00:05:53,900
+in ubuntu
+
+143
+00:05:53,900 --> 00:05:55,900
+so let's see in documentation
+
+144
+00:05:55,900 --> 00:05:57,900
+after apt update
+
+145
+00:05:57,900 --> 00:05:59,900
+we just have to run this command
+
+146
+00:05:59,900 --> 00:06:01,900
+and python will be installed
+
+147
+00:06:01,900 --> 00:06:03,900
+we can say and and python 3
+
+148
+00:06:03,900 --> 00:06:05,900
+and similarly we will install
+
+149
+00:06:05,900 --> 00:06:07,900
+pip install in ubuntu
+
+150
+00:06:07,900 --> 00:06:09,900
+so we can see
+
+151
+00:06:09,900 --> 00:06:11,900
+how we can install pip
+
+152
+00:06:11,900 --> 00:06:13,900
+so we just have to write apt install this thing
+
+153
+00:06:13,900 --> 00:06:15,900
+so here I can say and and this
+
+154
+00:06:15,900 --> 00:06:17,900
+and make sure
+
+155
+00:06:17,900 --> 00:06:19,900
+that we have a command of hyphen y
+
+156
+00:06:19,900 --> 00:06:21,900
+or else it will ask us
+
+157
+00:06:21,900 --> 00:06:23,900
+if we have to install it or not
+
+158
+00:06:23,900 --> 00:06:25,900
+so as soon as we
+
+159
+00:06:25,900 --> 00:06:27,900
+run this thing our packages are installed
+
+160
+00:06:27,900 --> 00:06:29,900
+now what we have to do is
+
+161
+00:06:29,900 --> 00:06:31,900
+we have to install visper ai
+
+162
+00:06:31,900 --> 00:06:33,900
+inside our machine
+
+163
+00:06:33,900 --> 00:06:35,900
+so I will do this command copy
+
+164
+00:06:35,900 --> 00:06:37,900
+and we will do run and this
+
+165
+00:06:37,900 --> 00:06:39,900
+so what will it do? it will install
+
+166
+00:06:39,900 --> 00:06:41,900
+my open ai visper
+
+167
+00:06:41,900 --> 00:06:43,900
+inside my docker container
+
+168
+00:06:43,900 --> 00:06:45,900
+and after that we will run
+
+169
+00:06:45,900 --> 00:06:47,900
+so we will say run and this
+
+170
+00:06:47,900 --> 00:06:49,900
+that's it our visper ai setup is done
+
+171
+00:06:49,900 --> 00:06:51,900
+now we will say entry point
+
+172
+00:06:51,900 --> 00:06:53,900
+and here we will say bash
+
+173
+00:06:53,900 --> 00:06:55,900
+if you run this container
+
+174
+00:06:55,900 --> 00:06:57,900
+then it will run from bash
+
+175
+00:06:57,900 --> 00:06:59,900
+ideally we should run visper
+
+176
+00:06:59,900 --> 00:07:01,900
+but I want to show you
+
+177
+00:07:01,900 --> 00:07:03,900
+how things work so here we can
+
+178
+00:07:03,900 --> 00:07:05,900
+keep it bash
+
+179
+00:07:05,900 --> 00:07:07,900
+now make sure that your docker demon is running
+
+180
+00:07:07,900 --> 00:07:09,900
+so till this point my docker demon
+
+181
+00:07:09,900 --> 00:07:11,900
+was still closed so I just run
+
+182
+00:07:11,900 --> 00:07:13,900
+docker demon
+
+183
+00:07:13,900 --> 00:07:15,900
+so you can see that my docker is running
+
+184
+00:07:15,900 --> 00:07:17,900
+so docker is now running
+
+185
+00:07:17,900 --> 00:07:19,900
+so now we just have to write a command
+
+186
+00:07:19,900 --> 00:07:21,900
+then I will say build
+
+187
+00:07:21,900 --> 00:07:23,900
+tag
+
+188
+00:07:23,900 --> 00:07:25,900
+and we will say my visper
+
+189
+00:07:25,900 --> 00:07:27,900
+okay we can name it
+
+190
+00:07:27,900 --> 00:07:29,900
+and dot
+
+191
+00:07:29,900 --> 00:07:31,900
+dot means the path where this docker file is
+
+192
+00:07:31,900 --> 00:07:33,900
+and enter
+
+193
+00:07:33,900 --> 00:07:35,900
+now this thing will take some time because
+
+194
+00:07:35,900 --> 00:07:37,900
+it will first fetch ubuntu and then
+
+195
+00:07:37,900 --> 00:07:39,900
+install all these things and then our
+
+196
+00:07:39,900 --> 00:07:41,900
+container will be built
+
+197
+00:07:41,900 --> 00:07:43,900
+which we can use for our translations
+
+198
+00:07:43,900 --> 00:07:45,900
+so this thing is going to take a lot of time
+
+199
+00:07:45,900 --> 00:07:47,900
+because ubuntu
+
+200
+00:07:47,900 --> 00:07:49,900
+you can see that ubuntu is getting
+
+201
+00:07:49,900 --> 00:07:51,900
+pulled if you already have ubuntu
+
+202
+00:07:51,900 --> 00:07:53,900
+right if you already have ubuntu
+
+203
+00:07:53,900 --> 00:07:55,900
+pulled then it will not take that much time
+
+204
+00:07:55,900 --> 00:07:57,900
+but because this is my first time
+
+205
+00:07:57,900 --> 00:07:59,900
+pulling this so it is taking time
+
+206
+00:07:59,900 --> 00:08:01,900
+so it's okay we can wait
+
+207
+00:08:01,900 --> 00:08:03,900
+so we wait on this
+
+208
+00:08:03,900 --> 00:08:05,900
+cool so now you can see that our docker
+
+209
+00:08:05,900 --> 00:08:07,900
+is set up if I come back
+
+210
+00:08:07,900 --> 00:08:09,900
+then you will see that we have an image
+
+211
+00:08:09,900 --> 00:08:11,900
+that is my visper
+
+212
+00:08:11,900 --> 00:08:13,900
+so this is our custom image that we just made
+
+213
+00:08:13,900 --> 00:08:15,900
+now we can use it
+
+214
+00:08:15,900 --> 00:08:17,900
+here my desktop
+
+215
+00:08:17,900 --> 00:08:19,900
+if I go to my terminal
+
+216
+00:08:19,900 --> 00:08:21,900
+and I do a series
+
+217
+00:08:21,900 --> 00:08:23,900
+dot dot
+
+218
+00:08:23,900 --> 00:08:25,900
+so here if I go to my desktop
+
+219
+00:08:25,900 --> 00:08:27,900
+okay so what I will do here quickly
+
+220
+00:08:27,900 --> 00:08:29,900
+I will make a folder on the desktop
+
+221
+00:08:29,900 --> 00:08:31,900
+which I will name it sample
+
+222
+00:08:31,900 --> 00:08:33,900
+samples
+
+223
+00:08:33,900 --> 00:08:35,900
+so I know that you cannot see
+
+224
+00:08:35,900 --> 00:08:37,900
+this particular thing
+
+225
+00:08:37,900 --> 00:08:39,900
+so here if I do ls then you will see that
+
+226
+00:08:39,900 --> 00:08:41,900
+here we have a folder sample
+
+227
+00:08:41,900 --> 00:08:43,900
+so if I do cd in sample
+
+228
+00:08:43,900 --> 00:08:45,900
+so here this is our file
+
+229
+00:08:45,900 --> 00:08:47,900
+which we have to translate
+
+230
+00:08:47,900 --> 00:08:49,900
+right so in this file
+
+231
+00:08:49,900 --> 00:08:51,900
+let's rename this file
+
+232
+00:08:51,900 --> 00:08:53,900
+we will call it sample.mov
+
+233
+00:08:53,900 --> 00:08:55,900
+so if I do ls again
+
+234
+00:08:55,900 --> 00:08:57,900
+you can see that this is our MOV file
+
+235
+00:08:57,900 --> 00:08:59,900
+which I showed you just now
+
+236
+00:08:59,900 --> 00:09:01,900
+so now what we can do is we just have to run our container
+
+237
+00:09:01,900 --> 00:09:03,900
+so what I will do is
+
+238
+00:09:03,900 --> 00:09:05,900
+first we copy this file path
+
+239
+00:09:05,900 --> 00:09:07,900
+so this is the file
+
+240
+00:09:07,900 --> 00:09:09,900
+so here we right click get info
+
+241
+00:09:09,900 --> 00:09:11,900
+so first we copy this file
+
+242
+00:09:11,900 --> 00:09:13,900
+so I have done this copy
+
+243
+00:09:13,900 --> 00:09:15,900
+so here we will do docker run
+
+244
+00:09:15,900 --> 00:09:17,900
+interactive
+
+245
+00:09:17,900 --> 00:09:19,900
+volume mapping
+
+246
+00:09:19,900 --> 00:09:21,900
+okay I hope that you can see the command
+
+247
+00:09:21,900 --> 00:09:23,900
+I will zoom in also
+
+248
+00:09:23,900 --> 00:09:25,900
+okay volume mapping
+
+249
+00:09:25,900 --> 00:09:27,900
+so you map this volume
+
+250
+00:09:27,900 --> 00:09:29,900
+slash home slash videos
+
+251
+00:09:29,900 --> 00:09:31,900
+and after that we have to run which container
+
+252
+00:09:31,900 --> 00:09:33,900
+that is mywhisper
+
+253
+00:09:33,900 --> 00:09:35,900
+so my-whisper
+
+254
+00:09:35,900 --> 00:09:37,900
+so this was our container
+
+255
+00:09:37,900 --> 00:09:39,900
+so we will run it and enter
+
+256
+00:09:39,900 --> 00:09:41,900
+this is our container up and running
+
+257
+00:09:41,900 --> 00:09:43,900
+if you do ls and I go to
+
+258
+00:09:43,900 --> 00:09:45,900
+cd-home
+
+259
+00:09:45,900 --> 00:09:47,900
+and in cd-home I go to
+
+260
+00:09:47,900 --> 00:09:49,900
+and I can go to like
+
+261
+00:09:49,900 --> 00:09:51,900
+you can see that here we can go
+
+262
+00:09:51,900 --> 00:09:53,900
+in videos if I do ls
+
+263
+00:09:53,900 --> 00:09:55,900
+then you can see that in our container
+
+264
+00:09:55,900 --> 00:09:57,900
+I am able to access that file
+
+265
+00:09:57,900 --> 00:09:59,900
+so what we have to do is we just have to write
+
+266
+00:09:59,900 --> 00:10:01,900
+whisper here
+
+267
+00:10:01,900 --> 00:10:03,900
+our file name sample.mov
+
+268
+00:10:03,900 --> 00:10:05,900
+and after that we will mention that
+
+269
+00:10:05,900 --> 00:10:07,900
+which is our language
+
+270
+00:10:07,900 --> 00:10:09,900
+so these are the examples and in which you can see
+
+271
+00:10:09,900 --> 00:10:11,900
+Hindi is also included okay these are the languages
+
+272
+00:10:11,900 --> 00:10:13,900
+so here I can say hyphen hyphen language
+
+273
+00:10:13,900 --> 00:10:15,900
+okay hyphen hyphen language
+
+274
+00:10:15,900 --> 00:10:17,900
+that is Hindi with a capital H
+
+275
+00:10:17,900 --> 00:10:19,900
+then we will call it task
+
+276
+00:10:19,900 --> 00:10:21,900
+so everything is translated from documentation
+
+277
+00:10:21,900 --> 00:10:23,900
+so as soon as I do this
+
+278
+00:10:23,900 --> 00:10:25,900
+and I will press enter
+
+279
+00:10:25,900 --> 00:10:27,900
+now this thing is going to take a lot of time
+
+280
+00:10:27,900 --> 00:10:29,900
+the reason being is because we
+
+281
+00:10:29,900 --> 00:10:31,900
+basically what happens is because this is an AI
+
+282
+00:10:31,900 --> 00:10:33,900
+so AI models need GPU
+
+283
+00:10:33,900 --> 00:10:35,900
+and my machine is not having
+
+284
+00:10:35,900 --> 00:10:37,900
+GPU okay so it works
+
+285
+00:10:37,900 --> 00:10:39,900
+very slow on CPU
+
+286
+00:10:39,900 --> 00:10:41,900
+but in reality obviously you will deploy this thing
+
+287
+00:10:41,900 --> 00:10:43,900
+on a cloud okay so we will deploy it on a cloud
+
+288
+00:10:43,900 --> 00:10:45,900
+so we should have
+
+289
+00:10:45,900 --> 00:10:47,900
+GPU instances there but okay for this
+
+290
+00:10:47,900 --> 00:10:49,900
+demonstration you can try this way
+
+291
+00:10:49,900 --> 00:10:51,900
+if you have GPU then this thing is going to be very fast
+
+292
+00:10:51,900 --> 00:10:53,900
+but if your machine doesn't have GPU
+
+293
+00:10:53,900 --> 00:10:55,900
+then this thing is going to be slow
+
+294
+00:10:55,900 --> 00:10:57,900
+so now you can see that
+
+295
+00:10:57,900 --> 00:10:59,900
+how our subtitles are
+
+296
+00:10:59,900 --> 00:11:01,900
+and it really took just one minute
+
+297
+00:11:01,900 --> 00:11:03,900
+okay so here you can see
+
+298
+00:11:03,900 --> 00:11:05,900
+yes welcome so this is a sample video
+
+299
+00:11:05,900 --> 00:11:07,900
+which is going to be in
+
+300
+00:11:07,900 --> 00:11:09,900
+in shudh hindi and we will try that
+
+301
+00:11:09,900 --> 00:11:11,900
+so if you will look carefully
+
+302
+00:11:11,900 --> 00:11:13,900
+what he did, he gave me this MOV
+
+303
+00:11:13,900 --> 00:11:15,900
+file which I will tell you again
+
+304
+00:11:15,900 --> 00:11:17,900
+so it was in Hindi right if I play it again
+
+305
+00:11:17,900 --> 00:11:19,900
+yes welcome
+
+306
+00:11:19,900 --> 00:11:21,900
+so this is a sample video
+
+307
+00:11:21,900 --> 00:11:23,900
+which is going to be in shudh hindi
+
+308
+00:11:23,900 --> 00:11:25,900
+and we will try that
+
+309
+00:11:25,900 --> 00:11:27,900
+we can generate subtitles of this shudh hindi video
+
+310
+00:11:27,900 --> 00:11:29,900
+in English language
+
+311
+00:11:29,900 --> 00:11:31,900
+so that our non-hindi
+
+312
+00:11:31,900 --> 00:11:33,900
+speaking audience can enjoy this video
+
+313
+00:11:33,900 --> 00:11:35,900
+so let's see
+
+314
+00:11:35,900 --> 00:11:37,900
+how our English subtitles
+
+315
+00:11:37,900 --> 00:11:39,900
+come out
+
+316
+00:11:39,900 --> 00:11:41,900
+right so you can see that
+
+317
+00:11:41,900 --> 00:11:43,900
+he did a very good job
+
+318
+00:11:43,900 --> 00:11:45,900
+and what he did in return
+
+319
+00:11:45,900 --> 00:11:47,900
+he did some sample videos right you can see that
+
+320
+00:11:47,900 --> 00:11:49,900
+if I open this json okay open with
+
+321
+00:11:49,900 --> 00:11:51,900
+vs code so you can see that if I
+
+322
+00:11:51,900 --> 00:11:53,900
+format this document so you can see that
+
+323
+00:11:53,900 --> 00:11:55,900
+what he did he said that
+
+324
+00:11:55,900 --> 00:11:57,900
+from 0 to 2 you said yes welcome
+
+325
+00:11:57,900 --> 00:11:59,900
+so this is a timestamp okay
+
+326
+00:11:59,900 --> 00:12:01,900
+so this is a sample video and it started
+
+327
+00:12:01,900 --> 00:12:03,900
+at this time and ended at this time
+
+328
+00:12:03,900 --> 00:12:05,900
+so if you can do it through any video
+
+329
+00:12:05,900 --> 00:12:07,900
+processing you can put subtitles on it
+
+330
+00:12:07,900 --> 00:12:09,900
+okay here one more thing that I want
+
+331
+00:12:09,900 --> 00:12:11,900
+to do is if I can just attach
+
+332
+00:12:11,900 --> 00:12:13,900
+the subtitles here itself
+
+333
+00:12:13,900 --> 00:12:15,900
+because if you have seen carefully
+
+334
+00:12:15,900 --> 00:12:17,900
+we also have srt file
+
+335
+00:12:17,900 --> 00:12:19,900
+we also have vtt file
+
+336
+00:12:19,900 --> 00:12:21,900
+so what are these vtt files
+
+337
+00:12:21,900 --> 00:12:23,900
+these are basically our translation files
+
+338
+00:12:23,900 --> 00:12:25,900
+so you can see that as it is
+
+339
+00:12:25,900 --> 00:12:27,900
+you can upload it on youtube
+
+340
+00:12:27,900 --> 00:12:29,900
+automatically it will make subtitles
+
+341
+00:12:29,900 --> 00:12:31,900
+so here if I go to my quicktime player
+
+342
+00:12:31,900 --> 00:12:33,900
+I am not sure if we can
+
+343
+00:12:33,900 --> 00:12:35,900
+do this for subtitles
+
+344
+00:12:35,900 --> 00:12:37,900
+so here like option should be
+
+345
+00:12:37,900 --> 00:12:39,900
+subtitles are like none okay
+
+346
+00:12:39,900 --> 00:12:41,900
+so let's do one thing let's go to chrome
+
+347
+00:12:41,900 --> 00:12:43,900
+okay so here I will say that
+
+348
+00:12:43,900 --> 00:12:45,900
+let's say we open any service
+
+349
+00:12:45,900 --> 00:12:47,900
+let's say maybe weed okay so let's open
+
+350
+00:12:47,900 --> 00:12:49,900
+weed.io so here
+
+351
+00:12:49,900 --> 00:12:51,900
+I upload the video first okay
+
+352
+00:12:51,900 --> 00:12:53,900
+by the way weed.io is a
+
+353
+00:12:53,900 --> 00:12:55,900
+like AI tool so here we will upload
+
+354
+00:12:55,900 --> 00:12:57,900
+so in the desktop
+
+355
+00:12:57,900 --> 00:12:59,900
+in the sample we will open it
+
+356
+00:12:59,900 --> 00:13:01,900
+okay so let's open this thing
+
+357
+00:13:01,900 --> 00:13:03,900
+let's open it here
+
+358
+00:13:03,900 --> 00:13:05,900
+here I will go to subtitles
+
+359
+00:13:05,900 --> 00:13:07,900
+so here I will say manual okay here
+
+360
+00:13:07,900 --> 00:13:09,900
+we can upload our own file so upload
+
+361
+00:13:09,900 --> 00:13:11,900
+okay and here I will say that
+
+362
+00:13:11,900 --> 00:13:13,900
+to upload
+
+363
+00:13:13,900 --> 00:13:15,900
+Hindi is okay import
+
+364
+00:13:15,900 --> 00:13:17,900
+so to import what we have to give
+
+365
+00:13:17,900 --> 00:13:19,900
+we have to give srt file
+
+366
+00:13:19,900 --> 00:13:21,900
+what it was like
+
+367
+00:13:21,900 --> 00:13:23,900
+let's go back so it says
+
+368
+00:13:23,900 --> 00:13:25,900
+that yeah so we can upload srt file
+
+369
+00:13:25,900 --> 00:13:27,900
+so let's upload this file
+
+370
+00:13:27,900 --> 00:13:29,900
+okay I didn't do anything I
+
+371
+00:13:29,900 --> 00:13:31,900
+uploaded the file that our AI generated
+
+372
+00:13:31,900 --> 00:13:33,900
+now let's play it
+
+373
+00:13:33,900 --> 00:13:35,900
+welcome
+
+374
+00:13:35,900 --> 00:13:37,900
+so this is a sample video which will be
+
+375
+00:13:37,900 --> 00:13:39,900
+in pure Hindi and we will try
+
+376
+00:13:39,900 --> 00:13:41,900
+that we can generate subtitles
+
+377
+00:13:41,900 --> 00:13:43,900
+of this pure Hindi video
+
+378
+00:13:43,900 --> 00:13:45,900
+in English language
+
+379
+00:13:45,900 --> 00:13:47,900
+so that our non-hindi speaking audience
+
+380
+00:13:47,900 --> 00:13:49,900
+can enjoy this video
+
+381
+00:13:49,900 --> 00:13:51,900
+so let's see that this video
+
+382
+00:13:51,900 --> 00:13:53,900
+how our English subtitles
+
+383
+00:13:53,900 --> 00:13:55,900
+come out
+
+384
+00:13:55,900 --> 00:13:57,900
+so as you have already seen
+
+385
+00:13:57,900 --> 00:13:59,900
+that we were able to
+
+386
+00:13:59,900 --> 00:14:01,900
+generate subtitles
+
+387
+00:14:01,900 --> 00:14:03,900
+that is also free of cost
+
+388
+00:14:03,900 --> 00:14:05,900
+so we used whisper here
+
+389
+00:14:05,900 --> 00:14:07,900
+and for this video
+
+390
+00:14:07,900 --> 00:14:09,900
+it is a very short video in which
+
+391
+00:14:09,900 --> 00:14:11,900
+I wanted to show you how you can achieve this
+
+392
+00:14:11,900 --> 00:14:13,900
+particular thing and now what I am planning
+
+393
+00:14:13,900 --> 00:14:15,900
+is that I will make a web application
+
+394
+00:14:15,900 --> 00:14:17,900
+in which we will do this on cloud
+
+395
+00:14:17,900 --> 00:14:19,900
+so what you can do is like you can connect
+
+396
+00:14:19,900 --> 00:14:21,900
+because obviously these things are coming
+
+397
+00:14:21,900 --> 00:14:23,900
+like this will charge you money because
+
+398
+00:14:23,900 --> 00:14:25,900
+one CPU is running on the cloud
+
+399
+00:14:25,900 --> 00:14:27,900
+so like you can upload a video
+
+400
+00:14:27,900 --> 00:14:29,900
+you can pay the money and then
+
+401
+00:14:29,900 --> 00:14:31,900
+the subtitles will come out in different languages
+
+402
+00:14:31,900 --> 00:14:33,900
+so this thing was that simple to do
+
+403
+00:14:33,900 --> 00:14:35,900
+and I hope you enjoyed the video
+
+404
+00:14:35,900 --> 00:14:37,900
+if you liked the video then like and subscribe
+
+405
+00:14:37,900 --> 00:14:39,900
+do tell in the comments how did you like the video
+
+406
+00:14:39,900 --> 00:14:41,900
+see you in the next video
+
+407
+00:14:41,900 --> 00:14:43,900
+until then bye bye take care
+

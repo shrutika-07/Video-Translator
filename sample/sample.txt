@@ -1,0 +1,407 @@
+Hey everyone, welcome back, welcome to another exciting video
+and in this video, we are going to make our own video subtitle generator app using AI
+so basically what we are going to achieve in this video is
+if we have a video, let's say like you watch my videos and those videos are in Hindi language
+so what I want is that I have an AI tool to process my videos
+and generate subtitles in English language
+so that non-Hindi speakers can also watch my videos by reading subtitles
+so just to set the context first, if you have watched my live stream video yesterday
+then I have given you this challenge that if you can make this, it will be really cool
+so like this is a real problem that all the content creators face and I personally face
+and all the online tools like capwing, wheat are very expensive
+so I thought let's make our own and make a video or a tutorial that how I made this
+so let's start with the video
+before starting the video, let's take an overview of what we are going to do
+how we are going to approach this
+so basically what we are going to do is we are going to use docker
+so we have a docker container
+what we are going to do is we are going to use Ubuntu image in this
+we are going to install some tools in this
+so what we are going to do is we are going to install some video file in docker container
+and in return what we are going to do is we are going to make a text file
+a text file and an SRT file
+in which our transcriptions and I can say our subtitles will be there
+and it can be that whatever we are going to do in the video is in any language
+like Hindi, Punjabi or any language
+and in return what we are going to do is we are going to generate subtitles in English language
+so this is our approach
+and for this what we are going to do is we are going to use whisper AI
+so if you don't know what is whisper AI
+whisper AI is basically a large language model
+that works on videos or on audios
+and this is completely open source
+and free of cost
+so if you want to read its architecture
+then you can read it here
+so in this you can see that if the user says this
+then you can generate English transcriptions
+you can generate any to English transcriptions
+for example the user is talking in any language
+and the transcriptions that are being made are in English language
+and this is exactly what we want
+so let's start from the coding part
+I didn't want to waste much time here
+so we are going to use this and this is free of cost
+so for this video tutorial
+I have recorded a sample video here
+this is in Hindi language
+so let me show you the video
+so let me play it
+welcome
+so this is a sample video
+which is going to be in Hindi
+and we will try to generate subtitles
+of this Hindi video
+in English language
+so that our non-Hindi speaking audience
+can enjoy this video
+so let's see
+how our English subtitles
+come out
+so this is our video
+which we are going to translate
+so let's do one thing
+let's open our terminal
+this is our terminal
+and we will make a new project
+in the coding folder
+so we will call it video translator
+so this is our server video translator
+and in this I will do cd
+video translator
+and code dot
+which will open my vscode
+so as per our architecture
+we need to make a docker container
+so let's do one thing
+let's make a docker file
+and just in case you don't know docker
+you never worked with docker
+so what you can do is you can just head over
+to learn.pushkar.dev
+and you can just get at my course of docker
+I will put the link in the description
+so here is the course
+so in this we have covered
+the docker from absolute beginner
+to advanced level
+but please consider this course
+so you can see this course
+back to the topic
+so what we are going to do
+I will assume that you already know docker
+so what we are going to do is
+we will take a base image here first
+as I told you
+we will take a base image here
+what it means is that we will do it inside
+now we have to use this whisper ai
+it is very simple
+what we have to do is
+first we have to install the whisper ai
+so that is we have to install pip
+which is ok
+after that what we have to do is
+we have to install some tools here
+just like ffmpeg
+so internally we have to use ffmpeg
+and we have to install ffmpeg
+inside our docker container
+and we have to install this too
+after that that's it
+we are ready to go
+after that you can see what we have to do
+we have to say whisper
+whatever audio video file we have to give
+it will be in hindi language
+and we will say
+task translate
+so what it will do is translate it in english
+if we don't give this task
+then what it will do is
+the language in which we have this video
+will generate the same subtitles
+what we can do is we can make two translations
+we can make hindi subtitles
+and we can make english subtitles
+so this is going to be really cool
+so let's start it quickly
+so what we have to do is
+finally we want to do a command run
+that is apt update
+so our packages will be updated
+and after that what we are going to do is
+we are going to do apt install ffmpeg
+so what we have to do inside this docker container
+we have to install ffmpeg
+plus we have to install python
+so here you can quickly search
+like python install
+in ubuntu
+so how we can install python
+in ubuntu
+so let's see in documentation
+after apt update
+we just have to run this command
+and python will be installed
+we can say and and python 3
+and similarly we will install
+pip install in ubuntu
+so we can see
+how we can install pip
+so we just have to write apt install this thing
+so here I can say and and this
+and make sure
+that we have a command of hyphen y
+or else it will ask us
+if we have to install it or not
+so as soon as we
+run this thing our packages are installed
+now what we have to do is
+we have to install visper ai
+inside our machine
+so I will do this command copy
+and we will do run and this
+so what will it do? it will install
+my open ai visper
+inside my docker container
+and after that we will run
+so we will say run and this
+that's it our visper ai setup is done
+now we will say entry point
+and here we will say bash
+if you run this container
+then it will run from bash
+ideally we should run visper
+but I want to show you
+how things work so here we can
+keep it bash
+now make sure that your docker demon is running
+so till this point my docker demon
+was still closed so I just run
+docker demon
+so you can see that my docker is running
+so docker is now running
+so now we just have to write a command
+then I will say build
+tag
+and we will say my visper
+okay we can name it
+and dot
+dot means the path where this docker file is
+and enter
+now this thing will take some time because
+it will first fetch ubuntu and then
+install all these things and then our
+container will be built
+which we can use for our translations
+so this thing is going to take a lot of time
+because ubuntu
+you can see that ubuntu is getting
+pulled if you already have ubuntu
+right if you already have ubuntu
+pulled then it will not take that much time
+but because this is my first time
+pulling this so it is taking time
+so it's okay we can wait
+so we wait on this
+cool so now you can see that our docker
+is set up if I come back
+then you will see that we have an image
+that is my visper
+so this is our custom image that we just made
+now we can use it
+here my desktop
+if I go to my terminal
+and I do a series
+dot dot
+so here if I go to my desktop
+okay so what I will do here quickly
+I will make a folder on the desktop
+which I will name it sample
+samples
+so I know that you cannot see
+this particular thing
+so here if I do ls then you will see that
+here we have a folder sample
+so if I do cd in sample
+so here this is our file
+which we have to translate
+right so in this file
+let's rename this file
+we will call it sample.mov
+so if I do ls again
+you can see that this is our MOV file
+which I showed you just now
+so now what we can do is we just have to run our container
+so what I will do is
+first we copy this file path
+so this is the file
+so here we right click get info
+so first we copy this file
+so I have done this copy
+so here we will do docker run
+interactive
+volume mapping
+okay I hope that you can see the command
+I will zoom in also
+okay volume mapping
+so you map this volume
+slash home slash videos
+and after that we have to run which container
+that is mywhisper
+so my-whisper
+so this was our container
+so we will run it and enter
+this is our container up and running
+if you do ls and I go to
+cd-home
+and in cd-home I go to
+and I can go to like
+you can see that here we can go
+in videos if I do ls
+then you can see that in our container
+I am able to access that file
+so what we have to do is we just have to write
+whisper here
+our file name sample.mov
+and after that we will mention that
+which is our language
+so these are the examples and in which you can see
+Hindi is also included okay these are the languages
+so here I can say hyphen hyphen language
+okay hyphen hyphen language
+that is Hindi with a capital H
+then we will call it task
+so everything is translated from documentation
+so as soon as I do this
+and I will press enter
+now this thing is going to take a lot of time
+the reason being is because we
+basically what happens is because this is an AI
+so AI models need GPU
+and my machine is not having
+GPU okay so it works
+very slow on CPU
+but in reality obviously you will deploy this thing
+on a cloud okay so we will deploy it on a cloud
+so we should have
+GPU instances there but okay for this
+demonstration you can try this way
+if you have GPU then this thing is going to be very fast
+but if your machine doesn't have GPU
+then this thing is going to be slow
+so now you can see that
+how our subtitles are
+and it really took just one minute
+okay so here you can see
+yes welcome so this is a sample video
+which is going to be in
+in shudh hindi and we will try that
+so if you will look carefully
+what he did, he gave me this MOV
+file which I will tell you again
+so it was in Hindi right if I play it again
+yes welcome
+so this is a sample video
+which is going to be in shudh hindi
+and we will try that
+we can generate subtitles of this shudh hindi video
+in English language
+so that our non-hindi
+speaking audience can enjoy this video
+so let's see
+how our English subtitles
+come out
+right so you can see that
+he did a very good job
+and what he did in return
+he did some sample videos right you can see that
+if I open this json okay open with
+vs code so you can see that if I
+format this document so you can see that
+what he did he said that
+from 0 to 2 you said yes welcome
+so this is a timestamp okay
+so this is a sample video and it started
+at this time and ended at this time
+so if you can do it through any video
+processing you can put subtitles on it
+okay here one more thing that I want
+to do is if I can just attach
+the subtitles here itself
+because if you have seen carefully
+we also have srt file
+we also have vtt file
+so what are these vtt files
+these are basically our translation files
+so you can see that as it is
+you can upload it on youtube
+automatically it will make subtitles
+so here if I go to my quicktime player
+I am not sure if we can
+do this for subtitles
+so here like option should be
+subtitles are like none okay
+so let's do one thing let's go to chrome
+okay so here I will say that
+let's say we open any service
+let's say maybe weed okay so let's open
+weed.io so here
+I upload the video first okay
+by the way weed.io is a
+like AI tool so here we will upload
+so in the desktop
+in the sample we will open it
+okay so let's open this thing
+let's open it here
+here I will go to subtitles
+so here I will say manual okay here
+we can upload our own file so upload
+okay and here I will say that
+to upload
+Hindi is okay import
+so to import what we have to give
+we have to give srt file
+what it was like
+let's go back so it says
+that yeah so we can upload srt file
+so let's upload this file
+okay I didn't do anything I
+uploaded the file that our AI generated
+now let's play it
+welcome
+so this is a sample video which will be
+in pure Hindi and we will try
+that we can generate subtitles
+of this pure Hindi video
+in English language
+so that our non-hindi speaking audience
+can enjoy this video
+so let's see that this video
+how our English subtitles
+come out
+so as you have already seen
+that we were able to
+generate subtitles
+that is also free of cost
+so we used whisper here
+and for this video
+it is a very short video in which
+I wanted to show you how you can achieve this
+particular thing and now what I am planning
+is that I will make a web application
+in which we will do this on cloud
+so what you can do is like you can connect
+because obviously these things are coming
+like this will charge you money because
+one CPU is running on the cloud
+so like you can upload a video
+you can pay the money and then
+the subtitles will come out in different languages
+so this thing was that simple to do
+and I hope you enjoyed the video
+if you liked the video then like and subscribe
+do tell in the comments how did you like the video
+see you in the next video
+until then bye bye take care

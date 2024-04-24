@@ -1,0 +1,1 @@
+docker run -it -v D:\Documents\Web_Projects\video_translator_proj\sample:/home/videos my-whisper

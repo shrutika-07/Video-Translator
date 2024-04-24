@@ -1,0 +1,408 @@
+start	end	text
+0	3300	Hey everyone, welcome back, welcome to another exciting video
+3300	9300	and in this video, we are going to make our own video subtitle generator app using AI
+9300	12300	so basically what we are going to achieve in this video is
+12300	18300	if we have a video, let's say like you watch my videos and those videos are in Hindi language
+18300	22700	so what I want is that I have an AI tool to process my videos
+22700	27900	and generate subtitles in English language
+27900	33400	so that non-Hindi speakers can also watch my videos by reading subtitles
+33400	37400	so just to set the context first, if you have watched my live stream video yesterday
+37400	41900	then I have given you this challenge that if you can make this, it will be really cool
+41900	46900	so like this is a real problem that all the content creators face and I personally face
+46900	52400	and all the online tools like capwing, wheat are very expensive
+52400	58400	so I thought let's make our own and make a video or a tutorial that how I made this
+58400	59900	so let's start with the video
+59900	63900	before starting the video, let's take an overview of what we are going to do
+63900	66400	how we are going to approach this
+66400	69400	so basically what we are going to do is we are going to use docker
+69400	71400	so we have a docker container
+71400	78400	what we are going to do is we are going to use Ubuntu image in this
+78400	80900	we are going to install some tools in this
+80900	86900	so what we are going to do is we are going to install some video file in docker container
+86900	89900	and in return what we are going to do is we are going to make a text file
+89900	92900	a text file and an SRT file
+92900	96900	in which our transcriptions and I can say our subtitles will be there
+96900	100900	and it can be that whatever we are going to do in the video is in any language
+100900	102900	like Hindi, Punjabi or any language
+102900	108900	and in return what we are going to do is we are going to generate subtitles in English language
+108900	110900	so this is our approach
+110900	114900	and for this what we are going to do is we are going to use whisper AI
+114900	117900	so if you don't know what is whisper AI
+117900	120900	whisper AI is basically a large language model
+120900	123900	that works on videos or on audios
+123900	125900	and this is completely open source
+125900	127900	and free of cost
+127900	130900	so if you want to read its architecture
+130900	131900	then you can read it here
+131900	133900	so in this you can see that if the user says this
+133900	135900	then you can generate English transcriptions
+135900	138900	you can generate any to English transcriptions
+138900	141900	for example the user is talking in any language
+141900	144900	and the transcriptions that are being made are in English language
+144900	146900	and this is exactly what we want
+146900	149900	so let's start from the coding part
+149900	151900	I didn't want to waste much time here
+151900	154900	so we are going to use this and this is free of cost
+154900	156900	so for this video tutorial
+156900	158900	I have recorded a sample video here
+158900	160900	this is in Hindi language
+160900	162900	so let me show you the video
+162900	164900	so let me play it
+166900	168900	welcome
+168900	170900	so this is a sample video
+170900	172900	which is going to be in Hindi
+172900	174900	and we will try to generate subtitles
+174900	176900	of this Hindi video
+176900	178900	in English language
+178900	180900	so that our non-Hindi speaking audience
+180900	182900	can enjoy this video
+182900	184900	so let's see
+184900	186900	how our English subtitles
+186900	188900	come out
+189900	191900	so this is our video
+191900	193900	which we are going to translate
+193900	195900	so let's do one thing
+195900	197900	let's open our terminal
+197900	199900	this is our terminal
+199900	201900	and we will make a new project
+201900	203900	in the coding folder
+203900	205900	so we will call it video translator
+205900	207900	so this is our server video translator
+207900	209900	and in this I will do cd
+209900	211900	video translator
+211900	213900	and code dot
+213900	215900	which will open my vscode
+215900	217900	so as per our architecture
+217900	219900	we need to make a docker container
+219900	221900	so let's do one thing
+221900	223900	let's make a docker file
+223900	225900	and just in case you don't know docker
+225900	227900	you never worked with docker
+227900	229900	so what you can do is you can just head over
+229900	231900	to learn.pushkar.dev
+231900	233900	and you can just get at my course of docker
+233900	235900	I will put the link in the description
+235900	237900	so here is the course
+237900	239900	so in this we have covered
+239900	241900	the docker from absolute beginner
+241900	243900	to advanced level
+243900	245900	but please consider this course
+245900	247900	so you can see this course
+247900	249900	back to the topic
+249900	251900	so what we are going to do
+251900	253900	I will assume that you already know docker
+253900	255900	so what we are going to do is
+255900	257900	we will take a base image here first
+257900	259900	as I told you
+259900	261900	we will take a base image here
+261900	263900	what it means is that we will do it inside
+263900	265900	now we have to use this whisper ai
+265900	267900	it is very simple
+267900	269900	what we have to do is
+269900	271900	first we have to install the whisper ai
+271900	273900	so that is we have to install pip
+273900	275900	which is ok
+275900	277900	after that what we have to do is
+277900	279900	we have to install some tools here
+279900	281900	just like ffmpeg
+281900	283900	so internally we have to use ffmpeg
+283900	285900	and we have to install ffmpeg
+285900	287900	inside our docker container
+287900	289900	and we have to install this too
+289900	291900	after that that's it
+291900	293900	we are ready to go
+293900	295900	after that you can see what we have to do
+295900	297900	we have to say whisper
+297900	299900	whatever audio video file we have to give
+299900	301900	it will be in hindi language
+301900	303900	and we will say
+303900	305900	task translate
+305900	307900	so what it will do is translate it in english
+307900	309900	if we don't give this task
+309900	311900	then what it will do is
+311900	313900	the language in which we have this video
+313900	315900	will generate the same subtitles
+315900	317900	what we can do is we can make two translations
+317900	319900	we can make hindi subtitles
+319900	321900	and we can make english subtitles
+321900	323900	so this is going to be really cool
+323900	325900	so let's start it quickly
+325900	327900	so what we have to do is
+327900	329900	finally we want to do a command run
+329900	331900	that is apt update
+331900	333900	so our packages will be updated
+333900	335900	and after that what we are going to do is
+335900	337900	we are going to do apt install ffmpeg
+337900	339900	so what we have to do inside this docker container
+339900	341900	we have to install ffmpeg
+341900	343900	plus we have to install python
+343900	345900	so here you can quickly search
+345900	347900	like python install
+347900	349900	in ubuntu
+349900	351900	so how we can install python
+351900	353900	in ubuntu
+353900	355900	so let's see in documentation
+355900	357900	after apt update
+357900	359900	we just have to run this command
+359900	361900	and python will be installed
+361900	363900	we can say and and python 3
+363900	365900	and similarly we will install
+365900	367900	pip install in ubuntu
+367900	369900	so we can see
+369900	371900	how we can install pip
+371900	373900	so we just have to write apt install this thing
+373900	375900	so here I can say and and this
+375900	377900	and make sure
+377900	379900	that we have a command of hyphen y
+379900	381900	or else it will ask us
+381900	383900	if we have to install it or not
+383900	385900	so as soon as we
+385900	387900	run this thing our packages are installed
+387900	389900	now what we have to do is
+389900	391900	we have to install visper ai
+391900	393900	inside our machine
+393900	395900	so I will do this command copy
+395900	397900	and we will do run and this
+397900	399900	so what will it do? it will install
+399900	401900	my open ai visper
+401900	403900	inside my docker container
+403900	405900	and after that we will run
+405900	407900	so we will say run and this
+407900	409900	that's it our visper ai setup is done
+409900	411900	now we will say entry point
+411900	413900	and here we will say bash
+413900	415900	if you run this container
+415900	417900	then it will run from bash
+417900	419900	ideally we should run visper
+419900	421900	but I want to show you
+421900	423900	how things work so here we can
+423900	425900	keep it bash
+425900	427900	now make sure that your docker demon is running
+427900	429900	so till this point my docker demon
+429900	431900	was still closed so I just run
+431900	433900	docker demon
+433900	435900	so you can see that my docker is running
+435900	437900	so docker is now running
+437900	439900	so now we just have to write a command
+439900	441900	then I will say build
+441900	443900	tag
+443900	445900	and we will say my visper
+445900	447900	okay we can name it
+447900	449900	and dot
+449900	451900	dot means the path where this docker file is
+451900	453900	and enter
+453900	455900	now this thing will take some time because
+455900	457900	it will first fetch ubuntu and then
+457900	459900	install all these things and then our
+459900	461900	container will be built
+461900	463900	which we can use for our translations
+463900	465900	so this thing is going to take a lot of time
+465900	467900	because ubuntu
+467900	469900	you can see that ubuntu is getting
+469900	471900	pulled if you already have ubuntu
+471900	473900	right if you already have ubuntu
+473900	475900	pulled then it will not take that much time
+475900	477900	but because this is my first time
+477900	479900	pulling this so it is taking time
+479900	481900	so it's okay we can wait
+481900	483900	so we wait on this
+483900	485900	cool so now you can see that our docker
+485900	487900	is set up if I come back
+487900	489900	then you will see that we have an image
+489900	491900	that is my visper
+491900	493900	so this is our custom image that we just made
+493900	495900	now we can use it
+495900	497900	here my desktop
+497900	499900	if I go to my terminal
+499900	501900	and I do a series
+501900	503900	dot dot
+503900	505900	so here if I go to my desktop
+505900	507900	okay so what I will do here quickly
+507900	509900	I will make a folder on the desktop
+509900	511900	which I will name it sample
+511900	513900	samples
+513900	515900	so I know that you cannot see
+515900	517900	this particular thing
+517900	519900	so here if I do ls then you will see that
+519900	521900	here we have a folder sample
+521900	523900	so if I do cd in sample
+523900	525900	so here this is our file
+525900	527900	which we have to translate
+527900	529900	right so in this file
+529900	531900	let's rename this file
+531900	533900	we will call it sample.mov
+533900	535900	so if I do ls again
+535900	537900	you can see that this is our MOV file
+537900	539900	which I showed you just now
+539900	541900	so now what we can do is we just have to run our container
+541900	543900	so what I will do is
+543900	545900	first we copy this file path
+545900	547900	so this is the file
+547900	549900	so here we right click get info
+549900	551900	so first we copy this file
+551900	553900	so I have done this copy
+553900	555900	so here we will do docker run
+555900	557900	interactive
+557900	559900	volume mapping
+559900	561900	okay I hope that you can see the command
+561900	563900	I will zoom in also
+563900	565900	okay volume mapping
+565900	567900	so you map this volume
+567900	569900	slash home slash videos
+569900	571900	and after that we have to run which container
+571900	573900	that is mywhisper
+573900	575900	so my-whisper
+575900	577900	so this was our container
+577900	579900	so we will run it and enter
+579900	581900	this is our container up and running
+581900	583900	if you do ls and I go to
+583900	585900	cd-home
+585900	587900	and in cd-home I go to
+587900	589900	and I can go to like
+589900	591900	you can see that here we can go
+591900	593900	in videos if I do ls
+593900	595900	then you can see that in our container
+595900	597900	I am able to access that file
+597900	599900	so what we have to do is we just have to write
+599900	601900	whisper here
+601900	603900	our file name sample.mov
+603900	605900	and after that we will mention that
+605900	607900	which is our language
+607900	609900	so these are the examples and in which you can see
+609900	611900	Hindi is also included okay these are the languages
+611900	613900	so here I can say hyphen hyphen language
+613900	615900	okay hyphen hyphen language
+615900	617900	that is Hindi with a capital H
+617900	619900	then we will call it task
+619900	621900	so everything is translated from documentation
+621900	623900	so as soon as I do this
+623900	625900	and I will press enter
+625900	627900	now this thing is going to take a lot of time
+627900	629900	the reason being is because we
+629900	631900	basically what happens is because this is an AI
+631900	633900	so AI models need GPU
+633900	635900	and my machine is not having
+635900	637900	GPU okay so it works
+637900	639900	very slow on CPU
+639900	641900	but in reality obviously you will deploy this thing
+641900	643900	on a cloud okay so we will deploy it on a cloud
+643900	645900	so we should have
+645900	647900	GPU instances there but okay for this
+647900	649900	demonstration you can try this way
+649900	651900	if you have GPU then this thing is going to be very fast
+651900	653900	but if your machine doesn't have GPU
+653900	655900	then this thing is going to be slow
+655900	657900	so now you can see that
+657900	659900	how our subtitles are
+659900	661900	and it really took just one minute
+661900	663900	okay so here you can see
+663900	665900	yes welcome so this is a sample video
+665900	667900	which is going to be in
+667900	669900	in shudh hindi and we will try that
+669900	671900	so if you will look carefully
+671900	673900	what he did, he gave me this MOV
+673900	675900	file which I will tell you again
+675900	677900	so it was in Hindi right if I play it again
+677900	679900	yes welcome
+679900	681900	so this is a sample video
+681900	683900	which is going to be in shudh hindi
+683900	685900	and we will try that
+685900	687900	we can generate subtitles of this shudh hindi video
+687900	689900	in English language
+689900	691900	so that our non-hindi
+691900	693900	speaking audience can enjoy this video
+693900	695900	so let's see
+695900	697900	how our English subtitles
+697900	699900	come out
+699900	701900	right so you can see that
+701900	703900	he did a very good job
+703900	705900	and what he did in return
+705900	707900	he did some sample videos right you can see that
+707900	709900	if I open this json okay open with
+709900	711900	vs code so you can see that if I
+711900	713900	format this document so you can see that
+713900	715900	what he did he said that
+715900	717900	from 0 to 2 you said yes welcome
+717900	719900	so this is a timestamp okay
+719900	721900	so this is a sample video and it started
+721900	723900	at this time and ended at this time
+723900	725900	so if you can do it through any video
+725900	727900	processing you can put subtitles on it
+727900	729900	okay here one more thing that I want
+729900	731900	to do is if I can just attach
+731900	733900	the subtitles here itself
+733900	735900	because if you have seen carefully
+735900	737900	we also have srt file
+737900	739900	we also have vtt file
+739900	741900	so what are these vtt files
+741900	743900	these are basically our translation files
+743900	745900	so you can see that as it is
+745900	747900	you can upload it on youtube
+747900	749900	automatically it will make subtitles
+749900	751900	so here if I go to my quicktime player
+751900	753900	I am not sure if we can
+753900	755900	do this for subtitles
+755900	757900	so here like option should be
+757900	759900	subtitles are like none okay
+759900	761900	so let's do one thing let's go to chrome
+761900	763900	okay so here I will say that
+763900	765900	let's say we open any service
+765900	767900	let's say maybe weed okay so let's open
+767900	769900	weed.io so here
+769900	771900	I upload the video first okay
+771900	773900	by the way weed.io is a
+773900	775900	like AI tool so here we will upload
+775900	777900	so in the desktop
+777900	779900	in the sample we will open it
+779900	781900	okay so let's open this thing
+781900	783900	let's open it here
+783900	785900	here I will go to subtitles
+785900	787900	so here I will say manual okay here
+787900	789900	we can upload our own file so upload
+789900	791900	okay and here I will say that
+791900	793900	to upload
+793900	795900	Hindi is okay import
+795900	797900	so to import what we have to give
+797900	799900	we have to give srt file
+799900	801900	what it was like
+801900	803900	let's go back so it says
+803900	805900	that yeah so we can upload srt file
+805900	807900	so let's upload this file
+807900	809900	okay I didn't do anything I
+809900	811900	uploaded the file that our AI generated
+811900	813900	now let's play it
+813900	815900	welcome
+815900	817900	so this is a sample video which will be
+817900	819900	in pure Hindi and we will try
+819900	821900	that we can generate subtitles
+821900	823900	of this pure Hindi video
+823900	825900	in English language
+825900	827900	so that our non-hindi speaking audience
+827900	829900	can enjoy this video
+829900	831900	so let's see that this video
+831900	833900	how our English subtitles
+833900	835900	come out
+835900	837900	so as you have already seen
+837900	839900	that we were able to
+839900	841900	generate subtitles
+841900	843900	that is also free of cost
+843900	845900	so we used whisper here
+845900	847900	and for this video
+847900	849900	it is a very short video in which
+849900	851900	I wanted to show you how you can achieve this
+851900	853900	particular thing and now what I am planning
+853900	855900	is that I will make a web application
+855900	857900	in which we will do this on cloud
+857900	859900	so what you can do is like you can connect
+859900	861900	because obviously these things are coming
+861900	863900	like this will charge you money because
+863900	865900	one CPU is running on the cloud
+865900	867900	so like you can upload a video
+867900	869900	you can pay the money and then
+869900	871900	the subtitles will come out in different languages
+871900	873900	so this thing was that simple to do
+873900	875900	and I hope you enjoyed the video
+875900	877900	if you liked the video then like and subscribe
+877900	879900	do tell in the comments how did you like the video
+879900	881900	see you in the next video
+881900	883900	until then bye bye take care
